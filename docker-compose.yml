@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ${DB_NAME:-blog_engine}
+      POSTGRES_USER: ${DB_USER:-blog_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-blog_pass}
+    ports:
+      - "${DB_PORT:-5433}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d/
+
+volumes:
+  postgres_data:
